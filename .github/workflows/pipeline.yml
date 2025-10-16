@@ -1,22 +1,22 @@
-name: Deployment Pipeline
+name: Clickable Pipeline
 
-# Manual trigger: one-click run
+# Allows manual trigger from GitHub UI
 on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  run-scripts:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Make scripts executable
-      - name: Make scripts executable
-        run: chmod +x deploy.sh pipeline.sh
+      - name: Set Execute Permission for Scripts
+        run: chmod +x ./pipeline.sh ./deploy.sh
 
-      # Step 3: Run the pipeline script
-      - name: Run pipeline
+      - name: Run Pipeline Script
         run: ./pipeline.sh
+
+      - name: Run Deploy Script
+        run: ./deploy.sh
