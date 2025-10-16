@@ -1,22 +1,21 @@
-name: Clickable Pipeline
-
-# Allows manual trigger from GitHub UI
-on:
-  workflow_dispatch:
+name: Pipeline Check
+on: [push, pull_request]
 
 jobs:
-  run-scripts:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set Execute Permission for Scripts
-        run: chmod +x ./pipeline.sh ./deploy.sh
-
-      - name: Run Pipeline Script
-        run: ./pipeline.sh
-
-      - name: Run Deploy Script
-        run: ./deploy.sh
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Make scripts executable
+        run: |
+          chmod +x scripts/pipeline.sh
+          chmod +x scripts/deploy.sh
+      
+      - name: Run pipeline
+        run: cd scripts && ./pipeline.sh

@@ -1,10 +1,24 @@
 #!/bin/bash
 
 echo "Starting deployment..."
-#deployment task
-sleep 2
+# Navigate to server directory and start the server
+cd ../server
+echo "Installing dependencies..."
+npm install
+
+echo "Starting server..."
+node server.js &
+SERVER_PID=$!
+
+echo "Server started with PID $SERVER_PID"
+echo "Waiting for server to be ready..."
+sleep 5
+
+#Save the Server PID for later cleanup if needed
+echo $SERVER_PID > ./server.pid
+
 echo "Deployment completed successfully!"
-exit 0
+
 
 # steps:
 #cd scripts
