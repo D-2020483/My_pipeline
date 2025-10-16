@@ -27,3 +27,4 @@ fi
 #01 =>cd scripts
 #02 =>chmod +x pipeline.sh
 #03 =>./pipeline.sh
+

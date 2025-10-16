@@ -1,0 +1,22 @@
+name: Deployment Pipeline
+
+# Manual trigger: one-click run
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Make scripts executable
+      - name: Make scripts executable
+        run: chmod +x deploy.sh pipeline.sh
+
+      # Step 3: Run the pipeline script
+      - name: Run pipeline
+        run: ./pipeline.sh
